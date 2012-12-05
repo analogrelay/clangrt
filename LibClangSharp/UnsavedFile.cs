@@ -7,5 +7,6 @@ namespace LibClangSharp
 {
     public class UnsavedFile
     {
+        internal IntPtr Handle { get; private set; }
     }
 }

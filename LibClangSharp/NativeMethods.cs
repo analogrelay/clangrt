@@ -22,5 +22,15 @@ namespace LibClangSharp
 
         [DllImport(LibClang)]
         public static extern void clang_CXIndex_setGlobalOptions(IntPtr indexHandle, GlobalOptions options);
+
+        [DllImport(LibClang)]
+        public static extern IntPtr clang_parseTranslationUnit(
+            /* 0 */ IntPtr indexHandle,
+            /* 1 */ [MarshalAs(UnmanagedType.LPStr)] string fileName,
+            /* 2 */ [MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 3)] string[] commandLineArguments,
+            /* 3 */ int commandLineArgumentCount,
+            /* 4 */ [MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 5)] IntPtr[] unsavedFiles,
+            /* 5 */ int unsavedFilesCount,
+            /* 6 */ TranslationUnitOptions options);
     }
 }

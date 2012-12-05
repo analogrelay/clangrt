@@ -42,7 +42,25 @@ namespace LibClangSharp
         public TranslationUnit ParseTranslationUnit(string sourceFileName, IEnumerable<string> commandLineArguments, IEnumerable<UnsavedFile> unsavedFiles, TranslationUnitOptions options)
         {
             Requires.NotNullOrEmpty(sourceFileName, "sourceFileName");
-            return null;
+            Requires.NotNull(commandLineArguments, "commandLineArguments");
+            Requires.NotNull(unsavedFiles, "unsavedFiles");
+            Requires.ValidEnumMember(options, TranslationUnitOptions.None, TranslationUnitOptions.IncludeBriefCommentsInCodeCompletion, "options");
+
+            // Build input arrays
+            string[] inputArgs = commandLineArguments.ToArray();
+            IntPtr[] inputFiles = unsavedFiles.Select(f => f.Handle).ToArray();
+
+            // Call the native method
+            IntPtr tuHandle = NativeMethods.clang_parseTranslationUnit(
+                _handle, sourceFileName, inputArgs, inputArgs.Length, inputFiles, inputFiles.Length, options);
+
+            // Check for failure
+            if (tuHandle == IntPtr.Zero)
+            {
+                throw new InvalidOperationException("Error parsing translation unit");
+            }
+
+            return new TranslationUnit(tuHandle);
         }
     }
 }

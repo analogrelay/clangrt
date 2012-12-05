@@ -23,6 +23,21 @@ namespace LibClangSharp.Common
             InvalidArgument<ArgumentOutOfRangeException>(op, paramName, ignoreTrace);
         }
 
+        public static void ValidEnumMember(Expression<Action> op, string paramName, Type enumType, bool ignoreTrace = false)
+        {
+            Action act = op.Compile();
+            ArgumentOutOfRangeException argEx = Assert.Throws<ArgumentOutOfRangeException>(() => act());
+            VerifyArgEx(argEx, paramName, ignoreTrace ? null : op);
+            Assert.Equal(
+                ContractAssert.ToFullArgExMessage(
+                    String.Format(
+                        CommonResources.Argument_InvalidEnumValue,
+                        paramName,
+                        enumType.FullName),
+                    paramName),
+                argEx.Message);
+        }
+
         public static void InvalidArgument<T>(Expression<Action> op, string paramName, bool ignoreTrace = false) where T : ArgumentException
         {
             Action act = op.Compile();
@@ -68,7 +83,7 @@ namespace LibClangSharp.Common
             Assert.Equal(paramName, argumentException.ParamName);
         }
 
-        private static string ToFullArgExMessage(string message, string paramName)
+        public static string ToFullArgExMessage(string message, string paramName)
         {
             return String.Format("{0}\r\nParameter name: {1}", message, paramName);
         }

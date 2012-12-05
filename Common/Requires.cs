@@ -35,5 +35,21 @@ namespace LibClangSharp.Common
                 throw new ArgumentOutOfRangeException(paramName);
             }
         }
+
+        public static void ValidEnumMember<TEnum>(TEnum value, TEnum min, TEnum max, string paramName)
+        {
+#if DEBUG
+            bool isValid = Enum.IsDefined(typeof(TEnum), value);
+#else
+            // Enum.IsDefined is super-slow, too slow for Release builds
+            bool isValid = value >= min && value <= max;
+#endif
+            if (!isValid)
+            {
+                throw new ArgumentOutOfRangeException(
+                    paramName,
+                    String.Format(CommonResources.Argument_InvalidEnumValue, paramName, typeof(TEnum).FullName));
+            }
+        }
     }
 }
