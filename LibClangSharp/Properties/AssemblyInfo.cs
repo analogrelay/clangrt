@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("ClangRT.Facts")]
+[assembly: AssemblyTitle("LibClangSharp")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("ClangRT.Facts")]
+[assembly: AssemblyProduct("LibClangSharp")]
 [assembly: AssemblyCopyright("Copyright ©  2012")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
@@ -20,7 +20,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("29239ae6-17a1-4e5d-ae66-388eefc4369a")]
+[assembly: Guid("74bc5468-f28e-44a8-9d90-80811cb331c4")]
 
 // Version information for an assembly consists of the following four values:
 //
